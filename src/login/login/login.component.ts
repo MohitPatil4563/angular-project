@@ -65,12 +65,8 @@ export class LoginComponent implements OnInit {
         } else {
           this.localStorage.setItem('token', data.token);
           this.localStorage.setItem('email', body.emailOrMobile);
-          if (this.profileData.roleName == 'Employer') {
-            this.router.navigateByUrl('/layout/dashboard');
-          }
-          else {
-            this.router.navigateByUrl('/layout/leave-request');
-          }
+          this.router.navigateByUrl('/layout/dashboard');
+         
           this.toastr.success("Login successfully");
         }
       })

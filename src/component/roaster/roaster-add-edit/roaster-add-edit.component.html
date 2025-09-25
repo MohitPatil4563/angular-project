@@ -56,7 +56,7 @@
               <div class="modal-body">
                 <!-- User IDs -->
                 <div class="mb-3">
-                  <label>User IDs</label>
+                  <label>Employee Name</label>
                    <select class="form-select" [(ngModel)]="roasterFormData.userIds[0]" name="userId" required>
             <option value="" disabled selected>-- Choose Employee --</option>
             <option *ngFor="let emp of employees" [value]="emp.id">
