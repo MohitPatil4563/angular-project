@@ -1,0 +1,27 @@
+.vertical-tabs-container {
+  display: flex;
+  height: 300px;
+}
+
+.tab-labels {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #ccc;
+  min-width: 150px;
+  padding: 8px;
+}
+
+.tab-labels button {
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.tab-labels .active {
+  font-weight: bold;
+  background-color: #e0e0e0;
+}
+
+.tab-content {
+  flex: 1;
+  padding: 16px;
+}

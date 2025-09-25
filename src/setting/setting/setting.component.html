@@ -1,0 +1,20 @@
+   <div class="card">
+      <div class="card-body">
+   <mat-tab-group  animationDuration="0ms" >
+     <mat-tab label="Profile">
+        <div >
+        <app-employee-profile></app-employee-profile>
+        </div>
+     </mat-tab>
+       <mat-tab label="Create Pin">
+      <app-create-pin></app-create-pin>
+     </mat-tab>
+     <!-- <mat-tab label="Change Password">
+      <app-change-password></app-change-password>
+     </mat-tab> -->
+     <mat-tab label="Time Zone" *ngIf="profileData.roleName=='Employer'">
+      <app-time-zone></app-time-zone>
+     </mat-tab>
+   </mat-tab-group>
+   </div>
+   </div>

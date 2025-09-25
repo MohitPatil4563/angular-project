@@ -1,0 +1,170 @@
+<!-- <div *ngIf="isLoading" class="spinner"></div>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12 text-end">
+      <button class="btn btn-primary mb-2" (click)="openModal()">Create Request</button>
+    </div>
+  </div>
+
+ 
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-border">
+        <table class="table">
+          <thead class="table-light">
+            <tr>
+              <th>Leave Type</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Status</th>
+              <th *ngIf="userRole == 'employer'">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let leave of leaveList">
+              <td>{{ leave.leaveType }}</td>
+              <td>{{ leave.startDate }}</td>
+              <td>{{ leave.endDate }}</td>
+              
+              <td>
+                <span class="badge rounded-pill bg-primary" *ngIf="leave.status =='Pending'">{{leave.status}}</span>
+                <span class="badge rounded-pill bg-success" *ngIf="leave.status =='Approved'">{{leave.status}}</span>
+              </td>
+              <td *ngIf="userRole == 'Employer'">
+                <button class="btn btn-sm btn-success"
+                        (click)="approveLeave(leave.id)"
+                        [disabled]="leave.status === 'Approved'">
+                  Approve
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <ng-template #leaveRequestModal>
+    <div class="modal-backdrop show" style="z-index: 1040;"></div>
+    <div class="modal show d-block" tabindex="-1" style="z-index: 1050;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form #leaveForm="ngForm" (ngSubmit)="onSubmit(leaveForm)">
+            <div class="modal-header">
+              <h5 class="modal-title">Create Leave Request</h5>
+              <button type="button" class="btn-close" (click)="closeModal()"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label>Leave Type</label>
+                <select class="form-select" name="leaveType" [(ngModel)]="formData.leaveType">
+                  <option *ngFor="let item of leaveRequestList" [value]="item.name">{{ item.name }}</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label>Start Date</label>
+                <input type="date" class="form-control" name="startDate" [(ngModel)]="formData.startDate" />
+              </div>
+              <div class="mb-3">
+                <label>End Date</label>
+                <input type="date" class="form-control" name="endDate" [(ngModel)]="formData.endDate" />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+              <button type="submit" class="btn btn-success">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  
+  <ng-container *ngIf="isModalVisible">
+    <ng-container *ngTemplateOutlet="leaveRequestModal"></ng-container>
+  </ng-container>
+</div> -->
+
+
+<div *ngIf="isLoading" class="spinner"></div>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12 text-end">
+      <button class="btn btn-primary mb-2" (click)="openModal()">Create Request</button>
+    </div>
+  </div>
+
+ 
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-border">
+        <table class="table">
+          <thead class="table-light">
+            <tr>
+              <th>Leave Type</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let leave of leaveList">
+              <td>{{ leave.leaveType }}</td>
+              <td>{{ leave.startDate }}</td>
+              <td>{{ leave.endDate }}</td>
+              
+              <td>
+                <span class="badge rounded-pill bg-primary" *ngIf="leave.status =='Pending'">{{leave.status}}</span>
+                <span class="badge rounded-pill bg-success" *ngIf="leave.status =='Approved'">{{leave.status}}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <ng-template #leaveRequestModal>
+    <div class="modal-backdrop show" style="z-index: 1040;"></div>
+    <div class="modal show d-block" tabindex="-1" style="z-index: 1050;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form #leaveForm="ngForm" (ngSubmit)="onSubmit(leaveForm)">
+            <div class="modal-header">
+              <h5 class="modal-title">Create Leave Request</h5>
+              <button type="button" class="btn-close" (click)="closeModal()"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label>Leave Type</label>
+                <select class="form-select" name="leaveType" [(ngModel)]="formData.leaveType">
+                  <option *ngFor="let item of leaveRequestList" [value]="item.name">{{ item.name }}</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label>Start Date</label>
+                <input type="date" class="form-control" name="startDate" [(ngModel)]="formData.startDate" />
+              </div>
+              <div class="mb-3">
+                <label>End Date</label>
+                <input type="date" class="form-control" name="endDate" [(ngModel)]="formData.endDate" />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+              <button type="submit" class="btn btn-success">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  
+  <ng-container *ngIf="isModalVisible">
+    <ng-container *ngTemplateOutlet="leaveRequestModal"></ng-container>
+  </ng-container>
+</div>

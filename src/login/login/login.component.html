@@ -1,0 +1,74 @@
+<div *ngIf="isLoading" class="spinner"></div>
+
+<div class="row justify-content-md-center mt-5">
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-4"> {{ isPinLogin ? 'Login with PIN' : 'Login' }}</h5>
+
+        <form>
+          <!-- Email for Password Login -->
+          <div class="mb-3" *ngIf="!isPinLogin">
+            <label for="email" class="form-label">Email address</label>
+            <input type="text" class="form-control" id="email" name="emailOrMobile"
+              [(ngModel)]="loginFormData.emailOrMobile" />
+          </div>
+
+          <!-- Email for PIN Login -->
+          <div class="mb-3" *ngIf="isPinLogin">
+            <label for="email" class="form-label">Email address</label>
+            <input type="text" class="form-control" id="email" name="emailOrMobile"
+              [(ngModel)]="viaPinLoginData.emailOrMobile" />
+          </div>
+
+          <!-- Password Field -->
+          <div class="mb-3" *ngIf="!isPinLogin">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-group">
+              <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="password" name="password"
+                [(ngModel)]="loginFormData.password" />
+              <div class="input-group-text" style="cursor: pointer;" (click)="onClickShowPassword()">
+                <i [class]="showPassword ? 'fa fa-eye' : 'fa fa-eye-slash'"></i>
+              </div>
+            </div>
+            <div class="text-end mt-2">
+              <a routerLink="/forgot-password" class="text-decoration-none">Forgot password?</a>
+            </div>
+          </div>
+
+          <!-- PIN Field -->
+          <div class="mb-3" *ngIf="isPinLogin">
+            <label for="pin" class="form-label">Enter PIN</label>
+            <!-- <input type="password" class="form-control" id="pin" name="pin" [(ngModel)]="viaPinLoginData.pin" /> -->
+              <div class="input-group">
+              <input [type]="showPassPinLogin ? 'text' : 'password'" class="form-control" id="pin" name="pin"
+                [(ngModel)]="viaPinLoginData.pin" />
+              <div class="input-group-text" style="cursor: pointer;" (click)="onClickShowPasswordWihPin()">
+                <i [class]="showPassPinLogin ? 'fa fa-eye' : 'fa fa-eye-slash'"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Login Button -->
+          <div class="d-grid gap-2">
+            <button type="button" class="btn btn-primary btn-block" (click)="loginAction()">
+              {{ isPinLogin ? 'Login with PIN' : 'Login' }}
+            </button>
+          </div>
+
+          <!-- Toggle Login Method -->
+          <div class="text-center mt-3">
+            <a href="#" (click)="isPinLogin = !isPinLogin; $event.preventDefault()">
+              Login With {{ isPinLogin ? 'Password' : 'PIN' }}  
+            </a>
+          </div>
+
+          <!-- Register Link -->
+          <p class="text-center mt-2">
+            Don't have an account? <a routerLink="/register">Register here</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div *ngIf="isLoading" class="spinner"></div>
+<div class="container">
+<form>
+    <div class="row mt-3">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <label for="timezoneId" class="form-label">Select Time Zone
+            </label>
+            <select id="timezoneId" class="form-select" name="timezoneId" [(ngModel)]="timeZoneFormData.timezoneId">
+                <option *ngFor="let timeZone of timeZoneList" [value]="timeZone.name">
+                    {{timeZone.name}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <button type="button" class="btn btn-block btn-success" (click)="updateTimeZone()">Update</button>
+        </div>
+    </div>
+</form>
+</div>

@@ -1,0 +1,11 @@
+<div class="sidebar">
+  <ul class="nav-links">
+    <li *ngIf="profileData.roleName =='Employer'"><a routerLink="dashboard">Dashboard</a></li>
+     <li *ngIf="profileData.roleName =='Employer'"><a routerLink="employee">Employee</a></li>
+    <li *ngIf="profileData.roleName =='Employee'"><a routerLink="leave-request">Leave Management</a></li>
+        <li *ngIf="profileData.roleName =='Employer'"><a routerLink="leave-pending-request" >Leave Pending Request Management</a></li>
+         <li  *ngIf="profileData.roleName =='Employer'"><a routerLink="roaster">Roaster Details</a></li>
+     <li><a routerLink="setting-page">Setting Profile</a></li>
+     <li (click)="logoutAction()">Logout</li>
+  </ul>
+</div>

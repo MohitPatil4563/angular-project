@@ -1,0 +1,513 @@
+<div *ngIf="isLoading" class="spinner"></div>
+<div class="row pt-2">
+
+  <div class="col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12">
+    <div class="row">
+      <div class="col">
+        <div class="card card-boarder">
+          <div class="card-header">
+            <label class="card-title mb-0">Summary</label>
+          </div>
+          <div class="card-body ">
+            <div class="row pb-2">
+              <div class="col-9 text-left">
+                <label class="card-title mb-0">Employees Active Today</label>
+              </div>
+              <div class="col-3 text-right">
+                <label class=" mb-0 ">{{employeesActiveToday}}</label>
+              </div>
+            </div>
+
+            <div class="row pb-2">
+              <div class="col-9 text-left">
+                <label class="card-title mb-0">Currently Clocked In</label>
+              </div>
+              <div class="col-3 text-right">
+                <label class=" mb-0 ma-dashboard-summary-card-label">{{currentlyClockedIn}}</label>
+              </div>
+            </div>
+
+            <div class="row pb-2">
+              <div class="col-9 text-left">
+                <label class="card-title mb-0">Upcoming Shifts Today
+                </label>
+              </div>
+              <div class="col-3 text-right">
+                <label class="mb-0">{{upcomingShiftsToday}}</label>
+              </div>
+            </div>
+
+            <div class="row pb-2">
+              <div class="col-9 text-left">
+                <label class="card-title mb-0">On Leave Today</label>
+              </div>
+              <div class="col-3 text-right">
+                <label class=" mb-0 ma-dashboard-summary-card-label">{{onLeaveToday}}</label>
+              </div>
+            </div>
+
+            <div class="row pb-2">
+              <div class="col-9 text-left">
+                <label class="card-title mb-0">Pending Approvals</label>
+              </div>
+              <div class="col-3 text-right">
+                <label class=" mb-0 ma-dashboard-summary-card-label">{{pendingApprovals}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12">
+    <div class="row">
+      <div class="col">
+        <div class="card card-boarder">
+          <div class="card-header">
+            <label class="card-title mb-0">Leave Request Breakdown</label>
+          </div>
+          <div class="card-body ">
+            <div class="row pb-2">
+              <div class="col-8 text-left">
+                <label class="card-title mb-0">Annual Leave</label>
+              </div>
+              <div class="col-4 text-right">
+                <label class=" mb-0 ">{{annualLeave}}</label>
+              </div>
+            </div>
+            <div class="row pb-2">
+              <div class="col-8 text-left">
+                <label class="card-title mb-0">Sick Leave</label>
+              </div>
+              <div class="col-4 text-right">
+                <label class=" mb-0 ma-dashboard-summary-card-label">{{sickLeave}}</label>
+              </div>
+            </div>
+
+            <div class="row from-group">
+              <div class="col-8 text-left">
+                <label class="card-title mb-0">Other Leave
+                </label>
+              </div>
+              <div class="col-4 text-right">
+                <label class="mb-0">{{otherLeave}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="row pt-3">
+  <div class="col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12">
+    <div class="row">
+      <div class="col">
+        <div class="card card-boarder">
+          <div class="card-header">
+            <label class="card-title mb-0">Weakly-Hours (Current Week Hours)</label>
+          </div>
+          <div class="card-body ">
+            <div>
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <h6 class="card-title mb-0">Current Week Hours</h6>
+                </div>
+              </div>
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Monday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{currentWeekHours.Mon}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Tuesday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{currentWeekHours.Tue}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Wednesday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{currentWeekHours.Wed}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Thursday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{currentWeekHours.Thu}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Friday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{currentWeekHours.Fri}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Saturday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{currentWeekHours.Sat}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Sunday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{currentWeekHours.Sun}}</label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12">
+    <div class="row">
+      <div class="col">
+        <div class="card card-boarder">
+          <div class="card-header">
+            <label class="card-title mb-0">Weakly-Hours (Previous Week Hours)</label>
+          </div>
+          <div class="card-body ">
+            <div>
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <h6 class="card-title mb-0">Previous Week Hours</h6>
+                </div>
+              </div>
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Monday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{previousWeekHours.Mon}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Tuesday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{previousWeekHours.Tue}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Wednesday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{previousWeekHours.Wed}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Thursday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{previousWeekHours.Thu}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Friday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{previousWeekHours.Fri}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Saturday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{previousWeekHours.Sat}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Sunday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{previousWeekHours.Sun}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="row pt-3">
+  <div class="col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12">
+    <div class="row">
+      <div class="col">
+        <div class="card card-boarder">
+          <div class="card-header">
+            <label class="card-title mb-0">Roster-Attendance(Roster Shifts)</label>
+          </div>
+          <div class="card-body ">
+            <div>
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <h6 class="card-title mb-0">Roster Shifts</h6>
+                </div>
+              </div>
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Monday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{rosterShifts.Mon}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Tuesday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{rosterShifts.Tue}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Wednesday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{rosterShifts.Wed}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Thursday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{rosterShifts.Thu}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Friday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{rosterShifts.Fri}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Saturday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{rosterShifts.Sat}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Sunday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{rosterShifts.Sun}}</label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12">
+    <div class="row">
+      <div class="col">
+        <div class="card card-boarder">
+          <div class="card-header">
+            <label class="card-title mb-0">Roster-Attendance(Actual Attendance)</label>
+          </div>
+          <div class="card-body ">
+            <div>
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <h6 class="card-title mb-0">Actual Attendance</h6>
+                </div>
+              </div>
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Monday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{actualAttendance.Mon}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Tuesday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{actualAttendance.Tue}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Wednesday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{actualAttendance.Wed}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Thursday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{actualAttendance.Thu}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Friday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{actualAttendance.Fri}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Saturday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{actualAttendance.Sat}}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-9 text-left">
+                  <label class="card-title mb-0">Sunday</label>
+                </div>
+                <div class="col-3 text-right">
+                  <label class=" mb-0 ma-dashboard-summary-card-label">{{actualAttendance.Sun}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="row pt-3">
+  <div class="col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12">
+    <div class="row">
+      <div class="col">
+        <div class="card card-boarder">
+          <div class="card-header">
+            <label class="card-title mb-0">Recent Activity</label>
+          </div>
+          <div class="card-body">
+
+            <!-- Loop through each activity -->
+            <div class="border-bottom pb-2 mb-3" *ngFor="let activity of activities">
+
+              <div class="row pb-2">
+                <div class="col-4 text-left">
+                  <label class="card-title mb-0">Event Type</label>
+                </div>
+                <div class="col-8 text-right">
+                  <label class="mb-0">{{ activity.eventType }}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-4 text-left">
+                  <label class="card-title mb-0">Description</label>
+                </div>
+                <div class="col-8 text-right">
+                  <label class="mb-0 ma-dashboard-summary-card-label">{{ activity.description }}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-4 text-left">
+                  <label class="card-title mb-0">Timestamp</label>
+                </div>
+                <div class="col-8 text-right">
+                  <!-- Format to dd-MM-yyyy -->
+                  <label class="mb-0">{{ activity.timestamp | date:'dd-MM-yyyy HH:mm' }}</label>
+                </div>
+              </div>
+
+              <div class="row pb-2">
+                <div class="col-4 text-left">
+                  <label class="card-title mb-0">Employee Name</label>
+                </div>
+                <div class="col-8 text-right">
+                  <label class="mb-0">{{ activity.employeeName }}</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- If no data -->
+            <div *ngIf="activities.length === 0" class="text-center text-muted">
+              No recent activity found
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
