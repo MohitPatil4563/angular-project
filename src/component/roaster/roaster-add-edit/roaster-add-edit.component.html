@@ -9,10 +9,10 @@
   <div class="row">
     <div class="col-12">
       <div class="card card-border">
-        <table class="table caption-top">
+       <table class="table caption-top">
           <thead class="table-light">
             <tr>
-              <th>User IDs</th>
+              <th>Employer Name</th>
               <th>Start Date</th>
               <th>End Date</th>
               <th>Created Name</th>
@@ -28,129 +28,159 @@
               <td>{{ roster.createdBy }}</td>
               
               <td>
-                <!-- <button class="btn btn-sm" (click)="openModal(true,i)">
+                <button type="button" class="btn btn-sm" title="Edit">
                   <i class="fas fa-pen"></i>
-                </button> -->
+                </button>
+                <button type="button" class="btn btn-sm" title="Delete" (click)="deleteRoster(roster.id)">
+                  <i class="fas fa-trash"></i>
+                </button>
                
               </td>
             </tr>
           </tbody>
         </table>
+         <!-- Pagination -->
+        <tfoot class="pb-3">
+          <tr class="d-flex">
+            <td class="col-6">
+              <div class="row ">
+                <span class="col-2 mt-1">Show</span>
+                <div class="col-3">
+                  <select class="form-select form-select-sm custom-sm" [(ngModel)]="maTableRoster.paging.pageSize"
+                    name="pageSize" (change)="maTableEventRoster(null, 'PageSizeChanged')">
+                    <option *ngFor="let size of maTableRoster.pageSizeList" [value]="size">
+                      {{ size }}
+                    </option>
+                  </select>
+
+                </div>
+                <span class="col-7 mt-1">Total {{ maTableRoster.paging.totalItems }}</span>
+              </div>
+            </td>
+            <td class="col-6" colspan="4">
+              <nav>
+                <pagination [boundaryLinks]="true" [totalItems]="maTableRoster.paging.totalItems"
+                  class="justify-content-end mb-0" firstText="«" previousText="‹" nextText="›" lastText="»"
+                  [maxSize]="maTableRoster.maxLinkSize" (pageChanged)="maTableEventRoster($event,'PageChanged')"
+                  [itemsPerPage]="maTableRoster.paging.pageSize">
+                </pagination>
+              </nav>
+            </td>
+          </tr>
+        </tfoot>
       </div>
     </div>
 
   
-    <ng-template #roasterFormModal>
-      <div class="modal-backdrop show" style="z-index: 1040;"></div>
-      <div class="modal show d-block" tabindex="-1" style="z-index: 1050;">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form #roasterForm="ngForm" (ngSubmit)="onSubmit(roasterForm)">
-              <div class="modal-header">
-                <h5 class="modal-title">
-                  {{ isEditMode ? 'Edit Roster' : 'Add New Roster' }}
-                </h5>
-                <button type="button" class="btn-close" (click)="closeModal()"></button>
-              </div>
-
-              <div class="modal-body">
-                <!-- User IDs -->
-                <div class="mb-3">
-                  <label>Employee Name</label>
-                   <select class="form-select" [(ngModel)]="roasterFormData.userIds[0]" name="userId" required>
-            <option value="" disabled selected>-- Choose Employee --</option>
-            <option *ngFor="let emp of employees" [value]="emp.id">
-              {{ emp.firstName }} {{ emp.lastName }}
-            </option>
-          </select>
-                  <!-- <input type="text" class="form-control"
-                         [(ngModel)]="roasterFormData.userIds[0]"
-                         name="userIds" 
-                         /> -->
-                </div>
-
-                <!-- Dates -->
-                <div class="mb-3">
-                  <label>Start Date</label>
-                  <input type="date" class="form-control"
-                         [(ngModel)]="roasterFormData.startDate" name="startDate" />
-                </div>
-                <div class="mb-3">
-                  <label>End Date</label>
-                  <input type="date" class="form-control"
-                         [(ngModel)]="roasterFormData.endDate" name="endDate" />
-                </div>
-
-                <!-- Dates array -->
-                <div class="mb-3">
-                  <label>Dates</label>
-                  <input type="date" class="form-control"
-                         [(ngModel)]="roasterFormData.dates[0]"
-                         name="dates"
-                         />
-                </div>
-
-                <!-- Times -->
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label>Start Times</label>
-                    <input type="text" class="form-control"
-                           [(ngModel)]="roasterFormData.startTimes[0]"
-                           name="startTimes"
-                           />
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label>End Times</label>
-                    <input type="text" class="form-control"
-                           [(ngModel)]="roasterFormData.endTimes[0]"
-                           name="endTimes"
-                           />
-                  </div>
-                </div>
-
-                <!-- Time Zone -->
-                <div class="mb-3">
-                  <label>Time Zone</label>
-                  <!-- <input type="text" class="form-control"
-                         [(ngModel)]="roasterFormData.timeZone" name="timeZone"/> -->
-                         <select id="timezoneId" class="form-select" name="timezoneId" [(ngModel)]="roasterFormData.timeZone">
-                <option *ngFor="let timeZone of timeZoneList" [value]="timeZone.name">
-                    {{timeZone.name}}
-                </option>
-            </select>
-                </div>
-
-                <!-- Include Days -->
-                <div class="mb-3">
-                  <label>Include Days (0=Sun ... 6=Sat, comma separated)</label>
-                  <input type="text" class="form-control"
-                         [(ngModel)]="roasterFormData.includeDays"
-                         name="includeDays" (change)="onIncludeDaysChange($event)"
-                        />
-                </div>
-
-                <!-- Shift Name -->
-                <div class="mb-3">
-                  <label>Shift Name</label>
-                  <input type="text" class="form-control"
-                         [(ngModel)]="roasterFormData.shiftName" name="shiftName"/>
-                </div>
-              </div>
-
-              <div class="modal-footer">
-                 <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
-              <button type="submit" class="btn btn-primary" [disabled]="isLoading">Save</button>
-              </div>
-            </form>
+   <ng-template #roasterFormModal>
+  <div class="modal-backdrop show" style="z-index: 1040;"></div>
+  <div class="modal show d-block" tabindex="-1" style="z-index: 1050;">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form #roasterForm="ngForm" (ngSubmit)="onSubmit(roasterForm)">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              {{ isEditMode ? 'Edit Roster' : 'Add New Roster' }}
+            </h5>
+            <button type="button" class="btn-close" (click)="closeModal()"></button>
           </div>
-        </div>
-      </div>
-    </ng-template>
 
-   
-    <ng-container *ngIf="modalOpen">
-      <ng-container *ngTemplateOutlet="roasterFormModal"></ng-container>
-    </ng-container>
+          <div class="modal-body">
+            
+            <!-- User IDs (multiple employees) -->
+            <div class="mb-3">
+              <label>Employees</label>
+              <div *ngFor="let empId of roasterFormData.userIds; let i = index" class="d-flex gap-2 mb-2">
+                <select class="form-select" [(ngModel)]="roasterFormData.userIds[i]" name="userId{{i}}" required>
+                  <option value="" disabled>-- Choose Employee --</option>
+                  <option *ngFor="let emp of employees" [value]="emp.id">
+                    {{ emp.firstName }} {{ emp.lastName }}
+                  </option>
+                </select>
+                <button type="button" class="btn btn-danger btn-sm" (click)="removeUserId(i)">✕</button>
+              </div>
+              <button type="button" class="btn btn-outline-primary btn-sm" (click)="addUserId()">+ Add Employee</button>
+            </div>
+
+            <!-- Dates -->
+            <div class="mb-3">
+              <label>Dates</label>
+              <div *ngFor="let date of roasterFormData.dates; let i = index" class="d-flex gap-2 mb-2">
+                <input type="date" class="form-control" [(ngModel)]="roasterFormData.dates[i]" name="date{{i}}" />
+                <button type="button" class="btn btn-danger btn-sm" (click)="removeDate(i)">✕</button>
+              </div>
+              <button type="button" class="btn btn-outline-primary btn-sm" (click)="addDate()">+ Add Date</button>
+            </div>
+
+            <!-- Times -->
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label>Start Times</label>
+                <div *ngFor="let st of roasterFormData.startTimes; let i = index" class="d-flex gap-2 mb-2">
+                  <input type="text" class="form-control" [(ngModel)]="roasterFormData.startTimes[i]" name="startTime{{i}}" placeholder="e.g. 09:00" />
+                  <button type="button" class="btn btn-danger btn-sm" (click)="removeStartTime(i)">✕</button>
+                </div>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="addStartTime()">+ Add Start Time</button>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label>End Times</label>
+                <div *ngFor="let et of roasterFormData.endTimes; let i = index" class="d-flex gap-2 mb-2">
+                  <input type="text" class="form-control" [(ngModel)]="roasterFormData.endTimes[i]" name="endTime{{i}}" placeholder="e.g. 17:00" />
+                  <button type="button" class="btn btn-danger btn-sm" (click)="removeEndTime(i)">✕</button>
+                </div>
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="addEndTime()">+ Add End Time</button>
+              </div>
+            </div>
+
+            <!-- Time Zone -->
+            <div class="mb-3">
+              <label>Time Zone</label>
+              <select id="timezoneId" class="form-select" name="timezoneId" [(ngModel)]="roasterFormData.timeZone">
+                <option *ngFor="let timeZone of timeZoneList" [value]="timeZone.name">
+                  {{ timeZone.name }}
+                </option>
+              </select>
+            </div>
+
+           <!-- Include Days -->
+            <div class="mb-3">
+  <label>Include Days (0=Sun ... 6=Sat)</label>
+  <div *ngFor="let day of roasterFormData.includeDays; let i = index" class="d-flex gap-2 mb-2">
+    <input type="number"
+           class="form-control"
+           [(ngModel)]="roasterFormData.includeDays[i]"
+           name="includeDays{{i}}"
+           min="0" max="6"
+           placeholder="0-6" />
+    <button type="button" class="btn btn-danger" (click)="removeIncludeDay(i)">X</button>
+  </div>
+
+  <button type="button" class="btn btn-outline-primary btn-sm" (click)="addIncludeDay()">Add Day</button>
+</div>
+
+
+            <!-- Shift Name -->
+            <div class="mb-3">
+              <label>Shift Name</label>
+              <input type="text" class="form-control" [(ngModel)]="roasterFormData.shiftName" name="shiftName"/>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+            <button type="submit" class="btn btn-primary" [disabled]="isLoading">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-container *ngIf="modalOpen">
+  <ng-container *ngTemplateOutlet="roasterFormModal"></ng-container>
+</ng-container>
+
 
   </div>
 </div>

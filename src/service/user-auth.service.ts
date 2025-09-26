@@ -298,7 +298,7 @@ export class UserAuthService {
         params: { pageNumber: page, pageSize },
         headers: this.getAuthHeaders()
       });
-      return response.data.items;
+      return response;
     } catch (error) {
       throw error;
     }
@@ -315,7 +315,18 @@ export class UserAuthService {
       throw error;
     }
   }
+  updateRoster(id: string, data: any): Promise<any> {
+    return axios.put(`${Roster_API}/${id}`, JSON.stringify(data), {
+      headers: this.getAuthHeaders()
+    });
+  }
 
+  // DELETE EMPLOYEE
+  deleteRoster(id: string): Promise<any> {
+    return axios.delete(`${Roster_API}/${id}`, {
+      headers: this.getAuthHeaders()
+    });
+  }
   // GET USER ROLE
   getUserRole(): string {
     return this.localStorage.getItem('role') || 'employer';

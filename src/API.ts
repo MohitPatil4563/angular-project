@@ -19,6 +19,14 @@ export const Leave_Breakdown_API = environment.BaseURL +   `/api/Dashboard/leave
 export const Recent_Activity_API = environment.BaseURL +   `/api/Dashboard/recent-activity`;
 
 //Employee
+export const Clock_In = environment.BaseURL +   `/api/Employee/clock-in`;
+export const Clock_Out = environment.BaseURL +   `/api/Employee/clock-out`;
+export const Add_Break = environment.BaseURL +   `/api/Employee//Add-Break`;
+export const Update_Break = environment.BaseURL +   `/api/Employee/update-break`;
+export const Delete_Break = environment.BaseURL +   `/api/Employee/delete-break`;
+export const Get_Break = environment.BaseURL +   `/api/Employee/get-break`;
+export const Employee_Shift = environment.BaseURL +   `/api/Employee/employee-shift`;
+
 export const Create_Leave_Request_API = environment.BaseURL +   `/api/Employee/create-leaveRequest`;
 export const My_Leave_Request_API = environment.BaseURL +   `/api/Employee/my-leave-request`;
 
