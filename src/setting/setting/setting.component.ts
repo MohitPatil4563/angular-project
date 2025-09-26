@@ -14,10 +14,19 @@ import { CommonModule } from '@angular/common';
   styleUrl: './setting.component.css'
 })
 export class SettingComponent implements OnInit {
-
+ profileData: any = {};
   constructor(private userAuthService: UserAuthService) { }
 ngOnInit(): void {
-  
+  this.loadProfile();
 }
+   async loadProfile() {
+    try {
 
+      const response = await this.userAuthService.getProfile();
+      this.profileData = { ...response.data };
+    } catch (error) {
+      console.error('Failed to load profile:', error);
+    } finally {
+    }
+  }
 }

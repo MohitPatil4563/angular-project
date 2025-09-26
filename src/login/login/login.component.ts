@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.loginFormData = new LoginModel();
     this.viaPinLoginData = new LoginPinModel();
-    this.loadProfile();
+    // this.loadProfile();
     // this.isPinLogin = this.route.snapshot.queryParamMap.get('mode') === 'pin';
   }
 
@@ -47,63 +47,77 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  loginWithPassword() {
-    debugger;
-    const body = {
-      emailOrMobile: this.loginFormData.emailOrMobile,
-      password: this.loginFormData.password
-    };
+ loginWithPassword() {
+  const body = {
+    emailOrMobile: this.loginFormData.emailOrMobile,
+    password: this.loginFormData.password
+  };
 
-    this.isLoading = true;
+  this.isLoading = true;
 
-    this.userAuthService.login(body)
-      .then(({ data }) => {
-        if (data.requiresOtp === true) {
-          this.localStorage.setItem('token', data.tempToken);
-          this.router.navigateByUrl('/otp-verify');
-          this.toastr.success(data.message);
-        } else {
-          this.localStorage.setItem('token', data.token);
-          this.localStorage.setItem('email', body.emailOrMobile);
-          this.router.navigateByUrl('/layout/dashboard');
-         
-          this.toastr.success("Login successfully");
-        }
-      })
-      .catch(error => {
-        this.toastr.error("Invalid credentials");
-      })
-      .finally(() => {
-        this.isLoading = false;
-      });
-  }
-
-  async loginWithPin() {
-    debugger;
-    this.isLoading = true;
-    const body = {
-      emailOrMobile: this.viaPinLoginData.emailOrMobile,
-      pin: this.viaPinLoginData.pin
-    };
-    this.userAuthService.viaPinLogin(body)
-      .then(({ data }) => {
-        this.localStorage.setItem('token', data.token.token);
-        this.localStorage.setItem('email', body.emailOrMobile);
-        if (this.profileData.roleName == 'Employer') {
-          this.router.navigateByUrl('/layout/dashboard');
-        }
-        else {
-          this.router.navigateByUrl('/layout/leave-request');
-        }
+  this.userAuthService.login(body)
+    .then(async ({ data }) => {
+      if (data.requiresOtp === true) {
+        this.localStorage.setItem('token', data.tempToken);
+        this.router.navigateByUrl('/otp-verify');
         this.toastr.success(data.message);
-      })
-      .catch(error => {
-        this.toastr.error("Invalid credentials");
-      })
-      .finally(() => {
-        this.isLoading = false;
-      });
-  }
+      } else {
+        this.localStorage.setItem('token', data.token);
+        this.localStorage.setItem('email', body.emailOrMobile);
+
+        // fetch profile after login
+        const profileRes = await this.userAuthService.getProfile();
+        this.profileData = profileRes.data;
+
+        if (this.profileData.roleName === 'Employer') {
+          this.router.navigateByUrl('/layout/dashboard');   // Employer → Dashboard
+        } else {
+          this.router.navigateByUrl('/layout/leave-request'); // Others → Leave request
+        }
+
+        this.toastr.success("Login successfully");
+      }
+    })
+    .catch(() => {
+      this.toastr.error("Invalid credentials");
+    })
+    .finally(() => {
+      this.isLoading = false;
+    });
+}
+
+async loginWithPin() {
+  this.isLoading = true;
+  const body = {
+    emailOrMobile: this.viaPinLoginData.emailOrMobile,
+    pin: this.viaPinLoginData.pin
+  };
+
+  this.userAuthService.viaPinLogin(body)
+    .then(async ({ data }) => {
+      this.localStorage.setItem('token', data.token.token);
+      this.localStorage.setItem('email', body.emailOrMobile);
+
+      // fetch profile after pin login
+      const profileRes = await this.userAuthService.getProfile();
+      this.profileData = profileRes.data;
+
+      if (this.profileData.roleName === 'Employer') {
+        this.router.navigateByUrl('/layout/dashboard');   // Employer → Dashboard
+      } else {
+        this.router.navigateByUrl('/layout/leave-request'); // Others → Leave request
+      }
+
+      this.toastr.success(data.message);
+    })
+    .catch(() => {
+      this.toastr.error("Invalid credentials");
+    })
+    .finally(() => {
+      this.isLoading = false;
+    });
+}
+
 
   onClickShowPassword() {
     if (this.passType == 'password') {
@@ -124,16 +138,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  async loadProfile() {
-    try {
-
-      const response = await this.userAuthService.getProfile();
-      this.profileData = { ...response.data };
-    } catch (error) {
-      console.error('Failed to load profile:', error);
-    } finally {
-    }
-  }
 
 
 }

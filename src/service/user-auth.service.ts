@@ -39,12 +39,25 @@ export class UserAuthService {
     return this.localStorage.getItem('token') || '';
   }
 
-  private getAuthHeaders() {
-    return {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${this.getToken()}`
-    };
+  // private getAuthHeaders() {
+  //   return {
+  //     'Content-Type': 'application/json',
+  //     Authorization: `Bearer ${this.getToken()}`
+  //   };
+  // }
+
+  getAuthHeaders() {
+  // const token = localStorage.getItem('token');
+  if (!this.getToken()) {
+    throw new Error('No token found in storage. Please login again.');
   }
+
+  return {
+    Authorization: `Bearer ${this.getToken()}`,
+    'Content-Type': 'application/json',
+  };
+}
+
 
   // LOGIN
   login(data: any): Promise<any> {
